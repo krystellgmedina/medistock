@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: medistock
+    env: php
+    buildCommand: composer install
+    startCommand: php spark serve --port $PORT --host 0.0.0.0
+    root: backend
+    envVars:
+      - key: CI_ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: medistock-db
+          property: connectionString
+
+databases:
+  - name: medistock-db
+    databaseName: medistock
+    plan: free

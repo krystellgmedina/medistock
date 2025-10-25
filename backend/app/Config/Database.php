@@ -7,10 +7,10 @@ class Database extends Config
 {
     public $default = [
         'DSN'      => '',
-        'hostname' => '',
-        'username' => '',
-        'password' => '',
-        'database' => '',
+        'hostname' => 'GiWabQxfgdcJtAlLfJTpBuTlPYuAjMcS@turntable.proxy.rlwy.net:38814/railway',
+        'username' => 'postgres',
+        'password' => 'GiWabQxfgdcJtAlLfJTpBuTlPYuAjMcS',
+        'database' => 'railway',
         'DBDriver' => 'Postgre',
         'DBPrefix' => '',
         'pConnect' => false,
