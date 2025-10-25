@@ -1,0 +1,10 @@
+nombre,categoria,cantidad,fecha_expiracion,id,created_date,updated_date,created_by_id,created_by,is_sample
+"Paracetamol 500mg","Analgésicos","250","2025-08-15","68fc416e2c2203b0fc83392f","2025-10-25T03:18:06.219000","2025-10-25T03:18:06.219000","68fc40adfda3c1f286df72b9","carloschavez3097@gmail.com",""
+"Amoxicilina 500mg","Antibióticos","150","2025-06-20","68fc416e2c2203b0fc833930","2025-10-25T03:18:06.219000","2025-10-25T03:18:06.219000","68fc40adfda3c1f286df72b9","carloschavez3097@gmail.com",""
+"Ibuprofeno 400mg","Antiinflamatorios","180","2025-09-10","68fc416e2c2203b0fc833931","2025-10-25T03:18:06.219000","2025-10-25T03:18:06.219000","68fc40adfda3c1f286df72b9","carloschavez3097@gmail.com",""
+"Losartán 50mg","Antihipertensivos","120","2025-07-25","68fc416e2c2203b0fc833932","2025-10-25T03:18:06.219000","2025-10-25T03:18:06.219000","68fc40adfda3c1f286df72b9","carloschavez3097@gmail.com",""
+"Loratadina 10mg","Antihistamínicos","200","2025-10-05","68fc416e2c2203b0fc833933","2025-10-25T03:18:06.219000","2025-10-25T03:18:06.219000","68fc40adfda3c1f286df72b9","carloschavez3097@gmail.com",""
+"Vitamina C 1000mg","Vitaminas","300","2026-01-30","68fc416e2c2203b0fc833934","2025-10-25T03:18:06.219000","2025-10-25T03:18:06.219000","68fc40adfda3c1f286df72b9","carloschavez3097@gmail.com",""
+"Omeprazol 20mg","Otros","8","2024-12-15","68fc416e2c2203b0fc833935","2025-10-25T03:18:06.219000","2025-10-25T03:18:06.219000","68fc40adfda3c1f286df72b9","carloschavez3097@gmail.com",""
+"Aspirina 100mg","Analgésicos","5","2024-12-28","68fc416e2c2203b0fc833936","2025-10-25T03:18:06.219000","2025-10-25T03:18:06.219000","68fc40adfda3c1f286df72b9","carloschavez3097@gmail.com",""
+"ASDASDAS","Suplementos","52","2025-10-24","68fc44942a046e64bd0987a9","2025-10-25T03:31:32.383000","2025-10-25T03:31:32.383000","68fc40adfda3c1f286df72b9","carloschavez3097@gmail.com",""

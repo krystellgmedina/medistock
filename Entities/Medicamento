@@ -1,0 +1,40 @@
+{
+  "name": "Medicamento",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "description": "Nombre del medicamento"
+    },
+    "categoria": {
+      "type": "string",
+      "enum": [
+        "Analg\u00e9sicos",
+        "Antibi\u00f3ticos",
+        "Antiinflamatorios",
+        "Antihipertensivos",
+        "Antihistam\u00ednicos",
+        "Vitaminas",
+        "Suplementos",
+        "Otros"
+      ],
+      "description": "Categor\u00eda del medicamento"
+    },
+    "cantidad": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Cantidad en stock"
+    },
+    "fecha_expiracion": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha de expiraci\u00f3n del medicamento"
+    }
+  },
+  "required": [
+    "nombre",
+    "categoria",
+    "cantidad",
+    "fecha_expiracion"
+  ]
+}

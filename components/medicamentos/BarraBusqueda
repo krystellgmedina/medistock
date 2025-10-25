@@ -1,0 +1,70 @@
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Search, Filter } from "lucide-react";
+
+export default function BarraBusqueda({ searchTerm, setSearchTerm, categoryFilter, setCategoryFilter, expirationFilter, setExpirationFilter }) {
+  return (
+    <Card className="border-gray-200 shadow-md">
+      <CardContent className="p-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="space-y-2">
+            <Label className="text-gray-700 font-medium flex items-center gap-2">
+              <Search className="w-4 h-4" />
+              Buscar por Nombre
+            </Label>
+            <Input
+              placeholder="Buscar medicamento..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="bg-white"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-gray-700 font-medium flex items-center gap-2">
+              <Filter className="w-4 h-4" />
+              Filtrar por Categoría
+            </Label>
+            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+              <SelectTrigger className="bg-white">
+                <SelectValue placeholder="Todas las categorías" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todas las categorías</SelectItem>
+                <SelectItem value="Analgésicos">Analgésicos</SelectItem>
+                <SelectItem value="Antibióticos">Antibióticos</SelectItem>
+                <SelectItem value="Antiinflamatorios">Antiinflamatorios</SelectItem>
+                <SelectItem value="Antihipertensivos">Antihipertensivos</SelectItem>
+                <SelectItem value="Antihistamínicos">Antihistamínicos</SelectItem>
+                <SelectItem value="Vitaminas">Vitaminas</SelectItem>
+                <SelectItem value="Suplementos">Suplementos</SelectItem>
+                <SelectItem value="Otros">Otros</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-gray-700 font-medium flex items-center gap-2">
+              <Filter className="w-4 h-4" />
+              Filtrar por Expiración
+            </Label>
+            <Select value={expirationFilter} onValueChange={setExpirationFilter}>
+              <SelectTrigger className="bg-white">
+                <SelectValue placeholder="Todas las fechas" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todas las fechas</SelectItem>
+                <SelectItem value="expired">Vencidos</SelectItem>
+                <SelectItem value="expiring_soon">Por vencer (30 días)</SelectItem>
+                <SelectItem value="valid">Vigentes</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

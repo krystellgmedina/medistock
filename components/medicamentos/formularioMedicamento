@@ -1,0 +1,192 @@
+import React, { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Pill, X, Save } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
+export default function FormularioMedicamento({ medicamento, onSubmit, onCancel, isEditing }) {
+  const [formData, setFormData] = useState({
+    nombre: "",
+    categoria: "",
+    cantidad: "",
+    fecha_expiracion: ""
+  });
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (medicamento) {
+      setFormData({
+        nombre: medicamento.nombre || "",
+        categoria: medicamento.categoria || "",
+        cantidad: medicamento.cantidad?.toString() || "",
+        fecha_expiracion: medicamento.fecha_expiracion || ""
+      });
+    }
+  }, [medicamento]);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.nombre.trim()) {
+      newErrors.nombre = "El nombre es obligatorio";
+    }
+
+    if (!formData.categoria) {
+      newErrors.categoria = "La categoría es obligatoria";
+    }
+
+    if (!formData.cantidad) {
+      newErrors.cantidad = "La cantidad es obligatoria";
+    } else if (parseInt(formData.cantidad) < 0) {
+      newErrors.cantidad = "La cantidad debe ser un número positivo";
+    }
+
+    if (!formData.fecha_expiracion) {
+      newErrors.fecha_expiracion = "La fecha de expiración es obligatoria";
+    } else {
+      const fecha = new Date(formData.fecha_expiracion);
+      if (isNaN(fecha.getTime())) {
+        newErrors.fecha_expiracion = "Formato de fecha inválido";
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      onSubmit({
+        ...formData,
+        cantidad: parseInt(formData.cantidad)
+      });
+      if (!isEditing) {
+        setFormData({
+          nombre: "",
+          categoria: "",
+          cantidad: "",
+          fecha_expiracion: ""
+        });
+      }
+      setErrors({});
+    }
+  };
+
+  return (
+    <Card className="border-blue-100 shadow-lg">
+      <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 border-b border-blue-200">
+        <CardTitle className="flex items-center gap-2 text-blue-900">
+          <Pill className="w-5 h-5" />
+          {isEditing ? "Editar Medicamento" : "Agregar Nuevo Medicamento"}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="nombre" className="text-gray-700 font-medium">
+                Nombre del Medicamento *
+              </Label>
+              <Input
+                id="nombre"
+                value={formData.nombre}
+                onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+                placeholder="Ej: Paracetamol 500mg"
+                className={errors.nombre ? "border-red-500" : ""}
+              />
+              {errors.nombre && (
+                <p className="text-red-500 text-sm">{errors.nombre}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="categoria" className="text-gray-700 font-medium">
+                Categoría *
+              </Label>
+              <Select
+                value={formData.categoria}
+                onValueChange={(value) => setFormData({ ...formData, categoria: value })}
+              >
+                <SelectTrigger className={errors.categoria ? "border-red-500" : ""}>
+                  <SelectValue placeholder="Seleccionar categoría" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Analgésicos">Analgésicos</SelectItem>
+                  <SelectItem value="Antibióticos">Antibióticos</SelectItem>
+                  <SelectItem value="Antiinflamatorios">Antiinflamatorios</SelectItem>
+                  <SelectItem value="Antihipertensivos">Antihipertensivos</SelectItem>
+                  <SelectItem value="Antihistamínicos">Antihistamínicos</SelectItem>
+                  <SelectItem value="Vitaminas">Vitaminas</SelectItem>
+                  <SelectItem value="Suplementos">Suplementos</SelectItem>
+                  <SelectItem value="Otros">Otros</SelectItem>
+                </SelectContent>
+              </Select>
+              {errors.categoria && (
+                <p className="text-red-500 text-sm">{errors.categoria}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="cantidad" className="text-gray-700 font-medium">
+                Cantidad en Stock *
+              </Label>
+              <Input
+                id="cantidad"
+                type="number"
+                min="0"
+                value={formData.cantidad}
+                onChange={(e) => setFormData({ ...formData, cantidad: e.target.value })}
+                placeholder="0"
+                className={errors.cantidad ? "border-red-500" : ""}
+              />
+              {errors.cantidad && (
+                <p className="text-red-500 text-sm">{errors.cantidad}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="fecha_expiracion" className="text-gray-700 font-medium">
+                Fecha de Expiración *
+              </Label>
+              <Input
+                id="fecha_expiracion"
+                type="date"
+                value={formData.fecha_expiracion}
+                onChange={(e) => setFormData({ ...formData, fecha_expiracion: e.target.value })}
+                className={errors.fecha_expiracion ? "border-red-500" : ""}
+              />
+              {errors.fecha_expiracion && (
+                <p className="text-red-500 text-sm">{errors.fecha_expiracion}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4">
+            {isEditing && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={onCancel}
+                className="gap-2"
+              >
+                <X className="w-4 h-4" />
+                Cancelar
+              </Button>
+            )}
+            <Button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 gap-2"
+            >
+              <Save className="w-4 h-4" />
+              {isEditing ? "Actualizar" : "Guardar"}
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
+  );
+}

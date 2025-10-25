@@ -1,0 +1,32 @@
+MediStock Manager - Instrucciones de despliegue (CodeIgniter + PostgreSQL)
+
+Resumen
+- Backend: CodeIgniter (se propone CodeIgniter 4).
+- Frontend: HTML + Bootstrap 5 + jQuery (por requerimiento).
+- Base de datos: PostgreSQL.
+
+Pasos rápidos
+1. Instalar CodeIgniter 4 en c:\Users\cabra\Downloads\KRYSTELL BASE44\backend (o carpeta que prefieras).
+2. Copiar los archivos PHP dentro de backend/app (Controllers, Models, Views) tal como se incluyen en este repo.
+3. Importar la base de datos:
+   - Conectar a PostgreSQL y ejecutar: c:\Users\cabra\Downloads\KRYSTELL BASE44\PostgreBD\create_medicamento.sql
+   - (require pgcrypto para gen_random_uuid() o ajustar a serial si no está disponible)
+4. Configurar .env de CodeIgniter: DBDriver = Postgre, hostname, username, password, database.
+5. Añadir rutas en app/Config/Routes.php:
+   $routes->get('inventario', 'Inventario::index');
+   $routes->get('inventario/list', 'Inventario::list');
+   $routes->post('inventario/create', 'Inventario::create');
+   $routes->post('inventario/update/(:segment)', 'Inventario::update/$1');
+   $routes->post('inventario/delete/(:segment)', 'Inventario::delete/$1');
+6. Ejecutar servidor: php spark serve (o configurar virtualhost).
+
+Qué incluye este repo/modificación
+- SQL para crear la tabla y 9 registros de ejemplo: c:\Users\cabra\Downloads\KRYSTELL BASE44\PostgreBD\create_medicamento.sql
+- Backend (CodeIgniter): Controller Inventario, Model MedicamentoModel, View inventario.php
+- Frontend JS: assets/js/inventario.js (usa jQuery AJAX)
+- Ejemplos de endpoints para CRUD y búsqueda/filtro por categoría/expiración.
+
+Siguientes pasos recomendados (opcional)
+- Añadir autenticación (usuarios).
+- Proteger endpoints con CSRF (CodeIgniter tiene soporte).
+- Tests y validaciones adicionales en backend.
