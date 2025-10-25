@@ -4,12 +4,20 @@ FROM php:8.1-apache
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev \
+    libicu-dev \
+    libonig-dev \
     zip \
     unzip \
-    git
+    git \
+    gnupg2 \
+    libxml2-dev \
+    libpng-dev \
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Instalar extensiones PHP necesarias
-RUN docker-php-ext-install pdo pdo_pgsql pgsql zip
+# Configurar e instalar extensiones PHP necesarias (intl, mbstring, pdo_pgsql, zip, xml)
+RUN docker-php-ext-configure intl && \
+    docker-php-ext-install -j$(nproc) intl mbstring pdo pdo_pgsql pgsql zip xml
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
